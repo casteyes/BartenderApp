@@ -1,0 +1,49 @@
+﻿@*This View made using List as template (MVC generates this table code)*@
+
+@model IEnumerable<BartenderApp.Models.Drink>
+
+
+@{
+    ViewBag.Title = "ViewOrdersTable";
+}
+
+<h2>Orders Queue</h2>
+
+
+@*This View Displays all of the drinks on the Ordered List, pulling table header and data from the model*@
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>  @*DisplayNameFor shows name of the property or the string defined in the display attribute for the property*@
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.Name;    @*Nick rec using item.Name here vs @Html.DisplayFor*@
+            </td>
+            <td>
+                @item.Description;
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price) @*DisplayFor requires a lambda but doesn't use modelItem*@
+            </td> @*If your data item does not come from your model object directly, the left part of the lambda expression does not matter*@
+            <td>
+                @Html.ActionLink("Prepare Drink", "Prepared", item) |
+
+            </td>
+        </tr>
+    }
+
+</table>
+
+@*See "HtmlHelper Methods" in Pro ASP Summary*@
